@@ -9,12 +9,12 @@ export default function HomeScreen() {
 
   useEffect(() => {
     fetchUserInfo();
-  }, []);
+  }, [userInfo]);
 
   const fetchUserInfo = async () => {
     try {
       const user = await AsyncStorage.getItem('@user');
-      if (user) {
+      if (user && !userInfo) {
         const userData = JSON.parse(user);
         setUserInfo(userData);
       }
@@ -32,12 +32,14 @@ export default function HomeScreen() {
     }
   };
 
+  console.log(userInfo,"Console on render");
+
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       {userInfo ? (
         <>
-          <Text>Welcome, {userInfo.name}!</Text>
-          <Text>Email: {userInfo.email}</Text>
+          <Text>Welcome, {userInfo?.name}!</Text>
+          <Text>Email: {userInfo?.email}</Text>
           <Button title="Logout" onPress={handleLogout} />
         </>
       ) : (
