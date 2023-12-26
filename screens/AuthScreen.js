@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { View, Button } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { ANDROID_CLIENT_ID, IOS_CLIENT_ID, WEB_CLIENT_ID } from '@env';
+import { AuthContext } from '../context/AuthContext';
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function AuthScreen() {
+  const {setUserInfo} = useContext(AuthContext);
     const navigation = useNavigation();
 
     const [request, response, promptAsync] = Google.useAuthRequest({
@@ -23,6 +25,7 @@ export default function AuthScreen() {
           const token = response.authentication.accessToken;
           const userInfo = await getUserInfo(token);
           await AsyncStorage.setItem('@user', JSON.stringify(userInfo));
+          setUserInfo(userInfo);
           navigation.navigate('Home');
         }
       };

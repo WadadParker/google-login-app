@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { View, Text, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AuthContext } from '../context/AuthContext';
 
 export default function HomeScreen() {
-  const [userInfo, setUserInfo] = useState(null);
+  const {userInfo, setUserInfo} = useContext(AuthContext);
   const navigation = useNavigation();
 
   useEffect(() => {
