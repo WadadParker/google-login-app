@@ -23,11 +23,13 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.googleloginapp"
+      "package": "com.anonymous.googleloginapp",
+      "redirectUri": "exp://192.168.1.4:8081"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "scheme":"google-login-app",
     "extra": {
       "eas": {
         "projectId": "2b57e682-b81f-4f96-b127-59abe4d19244"
