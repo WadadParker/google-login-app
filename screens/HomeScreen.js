@@ -2,7 +2,9 @@ import React, { useEffect, useContext } from 'react';
 import { View, Text, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { AuthContext } from '../context/AuthContext';
+import ProfileCard from '../components/ProfileCard';
 
 export default function HomeScreen() {
   const {userInfo, setUserInfo} = useContext(AuthContext);
@@ -39,17 +41,17 @@ export default function HomeScreen() {
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       {userInfo ? (
         <>
-          <Text>Welcome, {userInfo?.name}!</Text>
-          <Text>Email: {userInfo?.email}</Text>
-          <Button title="Logout" onPress={handleLogout} />
+            <ProfileCard userInfo={userInfo} />
+            <Button title="Logout" onPress={handleLogout} />
         </>
       ) : (
         <>
-        <Text>Please Sign up</Text>
-        <Button title='Sign in' onPress={()=>navigation.navigate('Auth')} />
+            <Text style={{fontSize:30,marginBottom:30}}>Please Sign in to continue</Text>
+            <Button title='Sign in' onPress={()=>navigation.navigate('Auth')} />
         </>
       )}
       
     </View>
   );
 }
+
